@@ -1,36 +1,97 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Supermarket Frontend
+
+A modern e-commerce platform frontend built with Next.js 14, TypeScript, and Tailwind CSS.
+
+## Tech Stack
+
+- **Framework**: Next.js 14 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS with custom design system
+- **State Management**: Redux Toolkit
+- **Server State**: React Query
+- **Forms**: React Hook Form
+- **Code Quality**: ESLint, Prettier
+
+## Project Structure
+
+```
+src/
+├── app/                 # Next.js App Router pages
+├── components/          # React components
+│   ├── ui/             # Reusable UI components
+│   ├── layout/         # Layout components
+│   └── forms/          # Form components
+├── hooks/              # Custom React hooks
+│   ├── api/           # API-related hooks
+│   └── auth/          # Authentication hooks
+├── lib/               # Library configurations
+│   ├── api/           # API client setup
+│   └── auth/          # Auth configuration
+├── store/             # Redux store
+│   └── slices/        # Redux slices
+├── types/             # TypeScript type definitions
+│   ├── api/           # API types
+│   └── auth/          # Auth types
+└── utils/             # Utility functions
+    ├── validation/    # Validation utilities
+    └── formatting/    # Formatting utilities
+```
 
 ## Getting Started
 
-First, run the development server:
+1. **Install dependencies**:
+   ```bash
+   npm install
+   ```
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+2. **Set up environment variables**:
+   ```bash
+   cp .env.local.example .env.local
+   ```
+   Edit `.env.local` with your configuration.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3. **Run the development server**:
+   ```bash
+   npm run dev
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. **Open your browser** and navigate to [http://localhost:3000](http://localhost:3000)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Available Scripts
 
-## Learn More
+- `npm run dev` - Start development server with Turbopack
+- `npm run build` - Build for production
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
+- `npm run lint:fix` - Run ESLint with auto-fix
+- `npm run format` - Format code with Prettier
+- `npm run format:check` - Check code formatting
+- `npm run type-check` - Run TypeScript type checking
 
-To learn more about Next.js, take a look at the following resources:
+## Design System
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The project uses a custom design system built with Tailwind CSS featuring:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+- **Colors**: Primary (green), secondary (amber), and comprehensive gray scale
+- **Typography**: Inter font family with display variant
+- **Spacing**: Extended spacing scale
+- **Components**: Consistent design tokens for shadows, borders, and layouts
 
-## Deploy on Vercel
+## Development Guidelines
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. **Code Style**: Follow Prettier configuration for consistent formatting
+2. **Type Safety**: Use TypeScript for all components and utilities
+3. **Component Structure**: Organize components by feature and reusability
+4. **State Management**: Use Redux for global state, React Query for server state
+5. **Accessibility**: Follow WCAG 2.1 AA guidelines
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Next Steps
+
+This is the initial project setup. The next tasks in the implementation plan include:
+- Design system implementation
+- Authentication system
+- Product catalog
+- Shopping cart and checkout
+- Admin dashboard
+- Performance optimization
+- Testing implementation
