@@ -27,7 +27,7 @@ export default function ProductDetailPage() {
 
   if (error || !response?.success || !response?.data) {
     return (
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-8 bg-white min-h-screen">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-gray-900 mb-4">
             Product Not Found

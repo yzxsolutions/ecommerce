@@ -228,7 +228,7 @@ export function ProductImageGallery({
 
           {/* Image counter */}
           {images.length > 1 && (
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
+            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-white/90 text-gray-800 px-3 py-1 rounded-full text-sm shadow-lg border border-gray-200">
               {selectedImageIndex + 1} / {images.length}
             </div>
           )}
