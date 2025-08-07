@@ -39,8 +39,8 @@ export function middleware(request: NextRequest) {
   }
 
   // Check if route is public
-  const isPublicRoute = publicRoutes.some(route => 
-    pathname === route || pathname.startsWith(route)
+  const isPublicRoute = publicRoutes.some(
+    (route) => pathname === route || pathname.startsWith(route)
   );
 
   if (isPublicRoute) {
@@ -59,7 +59,6 @@ export function middleware(request: NextRequest) {
     // For now, we'll let the client-side components handle the protection
     // In a real application, you might want to check for authentication tokens here
     // and redirect server-side if needed
-    
     // Example of server-side token checking (commented out):
     /*
     const token = request.cookies.get('access_token')?.value;

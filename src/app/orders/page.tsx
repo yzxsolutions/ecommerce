@@ -1,13 +1,16 @@
 'use client';
 
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
-import { useAuth } from '@/hooks/auth';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+} from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 
 function OrdersPageContent() {
-  const { user } = useAuth();
-
   // Mock order data
   const orders = [
     {
@@ -21,7 +24,7 @@ function OrdersPageContent() {
       id: 'ORD-002',
       date: '2024-01-10',
       status: 'shipped',
-      total: 156.50,
+      total: 156.5,
       items: 8,
     },
     {
@@ -72,14 +75,14 @@ function OrdersPageContent() {
                   d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"
                 />
               </svg>
-              <h3 className="mt-4 text-lg font-medium text-gray-900">No orders yet</h3>
+              <h3 className="mt-4 text-lg font-medium text-gray-900">
+                No orders yet
+              </h3>
               <p className="mt-2 text-gray-500">
                 When you place your first order, it will appear here.
               </p>
               <div className="mt-6">
-                <Button>
-                  Start Shopping
-                </Button>
+                <Button>Start Shopping</Button>
               </div>
             </CardContent>
           </Card>
@@ -90,7 +93,9 @@ function OrdersPageContent() {
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <div>
-                      <CardTitle className="text-lg">Order {order.id}</CardTitle>
+                      <CardTitle className="text-lg">
+                        Order {order.id}
+                      </CardTitle>
                       <CardDescription>
                         Placed on {new Date(order.date).toLocaleDateString()}
                       </CardDescription>
@@ -107,7 +112,9 @@ function OrdersPageContent() {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <p className="text-sm font-medium text-gray-700">Total Amount</p>
+                      <p className="text-sm font-medium text-gray-700">
+                        Total Amount
+                      </p>
                       <p className="text-lg font-semibold text-gray-900">
                         ${order.total.toFixed(2)}
                       </p>
@@ -135,21 +142,13 @@ function OrdersPageContent() {
           <Card>
             <CardHeader>
               <CardTitle>Need Help?</CardTitle>
-              <CardDescription>
-                Get assistance with your orders
-              </CardDescription>
+              <CardDescription>Get assistance with your orders</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="outline">
-                  Track an Order
-                </Button>
-                <Button variant="outline">
-                  Return an Item
-                </Button>
-                <Button variant="outline">
-                  Contact Support
-                </Button>
+                <Button variant="outline">Track an Order</Button>
+                <Button variant="outline">Return an Item</Button>
+                <Button variant="outline">Contact Support</Button>
               </div>
             </CardContent>
           </Card>

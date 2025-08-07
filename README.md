@@ -40,17 +40,21 @@ src/
 ## Getting Started
 
 1. **Install dependencies**:
+
    ```bash
    npm install
    ```
 
 2. **Set up environment variables**:
+
    ```bash
    cp .env.local.example .env.local
    ```
+
    Edit `.env.local` with your configuration.
 
 3. **Run the development server**:
+
    ```bash
    npm run dev
    ```
@@ -88,6 +92,7 @@ The project uses a custom design system built with Tailwind CSS featuring:
 ## Next Steps
 
 This is the initial project setup. The next tasks in the implementation plan include:
+
 - Design system implementation
 - Authentication system
 - Product catalog

@@ -3,7 +3,14 @@
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/hooks/auth';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 
 export default function UnauthorizedPage() {
   const router = useRouter();
@@ -37,9 +44,11 @@ export default function UnauthorizedPage() {
               />
             </svg>
           </div>
-          <h1 className="mt-4 text-3xl font-bold text-gray-900">Access Denied</h1>
+          <h1 className="mt-4 text-3xl font-bold text-gray-900">
+            Access Denied
+          </h1>
           <p className="mt-2 text-gray-600">
-            You don't have permission to access this page
+            You don&apos;t have permission to access this page
           </p>
         </div>
 
@@ -49,8 +58,10 @@ export default function UnauthorizedPage() {
             <CardDescription>
               {user ? (
                 <>
-                  You are signed in as <span className="font-medium">{user.email}</span> with{' '}
-                  <span className="font-medium capitalize">{user.role}</span> permissions, but this page requires additional access rights.
+                  You are signed in as{' '}
+                  <span className="font-medium">{user.email}</span> with{' '}
+                  <span className="font-medium capitalize">{user.role}</span>{' '}
+                  permissions, but this page requires additional access rights.
                 </>
               ) : (
                 'This page requires authentication and specific permissions to access.'
@@ -81,7 +92,9 @@ export default function UnauthorizedPage() {
                     </h3>
                     <div className="mt-2 text-sm text-yellow-700">
                       <p>
-                        If you believe you should have access to this page, please contact your administrator or try signing in with a different account.
+                        If you believe you should have access to this page,
+                        please contact your administrator or try signing in with
+                        a different account.
                       </p>
                     </div>
                   </div>
@@ -98,7 +111,7 @@ export default function UnauthorizedPage() {
             >
               Go to Home
             </Button>
-            
+
             {user && (
               <Button
                 onClick={handleLogout}

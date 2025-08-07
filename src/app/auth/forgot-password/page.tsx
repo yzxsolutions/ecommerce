@@ -5,7 +5,14 @@ import Link from 'next/link';
 import { useForm } from 'react-hook-form';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 
 interface ForgotPasswordFormData {
   email: string;
@@ -69,9 +76,11 @@ export default function ForgotPasswordPage() {
                 />
               </svg>
             </div>
-            <h1 className="mt-4 text-3xl font-bold text-gray-900">Check your email</h1>
+            <h1 className="mt-4 text-3xl font-bold text-gray-900">
+              Check your email
+            </h1>
             <p className="mt-2 text-gray-600">
-              We've sent a password reset link to{' '}
+              We&apos;ve sent a password reset link to{' '}
               <span className="font-medium">{getValues('email')}</span>
             </p>
           </div>
@@ -79,9 +88,10 @@ export default function ForgotPasswordPage() {
           <Card>
             <CardContent className="text-center space-y-4">
               <p className="text-sm text-gray-600">
-                Didn't receive the email? Check your spam folder or try again.
+                Didn&apos;t receive the email? Check your spam folder or try
+                again.
               </p>
-              
+
               <div className="space-y-2">
                 <Button
                   variant="outline"
@@ -90,7 +100,7 @@ export default function ForgotPasswordPage() {
                 >
                   Try different email
                 </Button>
-                
+
                 <Button
                   variant="ghost"
                   className="w-full"
@@ -120,9 +130,11 @@ export default function ForgotPasswordPage() {
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
         <div className="text-center">
-          <h1 className="text-3xl font-bold text-gray-900">Forgot your password?</h1>
+          <h1 className="text-3xl font-bold text-gray-900">
+            Forgot your password?
+          </h1>
           <p className="mt-2 text-gray-600">
-            No worries, we'll send you reset instructions
+            No worries, we&apos;ll send you reset instructions
           </p>
         </div>
 
@@ -130,7 +142,8 @@ export default function ForgotPasswordPage() {
           <CardHeader>
             <CardTitle>Reset Password</CardTitle>
             <CardDescription>
-              Enter your email address and we'll send you a link to reset your password
+              Enter your email address and we&apos;ll send you a link to reset
+              your password
             </CardDescription>
           </CardHeader>
 

@@ -60,7 +60,15 @@ export function ProtectedRoute({
 
     // User is authenticated and authorized
     setIsAuthorized(true);
-  }, [isAuthenticated, user, isLoading, requireAuth, requiredRoles, redirectTo, router]);
+  }, [
+    isAuthenticated,
+    user,
+    isLoading,
+    requireAuth,
+    requiredRoles,
+    redirectTo,
+    router,
+  ]);
 
   // Show loading state while determining auth status
   if (isLoading || isAuthorized === null) {
@@ -96,12 +104,15 @@ export function withProtectedRoute<P extends object>(
   };
 
   ProtectedComponent.displayName = `withProtectedRoute(${Component.displayName || Component.name})`;
-  
+
   return ProtectedComponent;
 }
 
 // Convenience components for common use cases
-export function CustomerRoute({ children, ...props }: Omit<ProtectedRouteProps, 'requiredRoles'>) {
+export function CustomerRoute({
+  children,
+  ...props
+}: Omit<ProtectedRouteProps, 'requiredRoles'>) {
   return (
     <ProtectedRoute requiredRoles={['customer']} {...props}>
       {children}
@@ -109,17 +120,31 @@ export function CustomerRoute({ children, ...props }: Omit<ProtectedRouteProps, 
   );
 }
 
-export function AdminRoute({ children, ...props }: Omit<ProtectedRouteProps, 'requiredRoles'>) {
+export function AdminRoute({
+  children,
+  ...props
+}: Omit<ProtectedRouteProps, 'requiredRoles'>) {
   return (
-    <ProtectedRoute requiredRoles={['admin', 'manager']} redirectTo="/unauthorized" {...props}>
+    <ProtectedRoute
+      requiredRoles={['admin', 'manager']}
+      redirectTo="/unauthorized"
+      {...props}
+    >
       {children}
     </ProtectedRoute>
   );
 }
 
-export function ManagerRoute({ children, ...props }: Omit<ProtectedRouteProps, 'requiredRoles'>) {
+export function ManagerRoute({
+  children,
+  ...props
+}: Omit<ProtectedRouteProps, 'requiredRoles'>) {
   return (
-    <ProtectedRoute requiredRoles={['manager']} redirectTo="/unauthorized" {...props}>
+    <ProtectedRoute
+      requiredRoles={['manager']}
+      redirectTo="/unauthorized"
+      {...props}
+    >
       {children}
     </ProtectedRoute>
   );

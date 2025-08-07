@@ -3,7 +3,14 @@
 import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 import { useAuth } from '@/hooks/auth';
 import { Button } from '@/components/ui/button';
-import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from '@/components/ui/card';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  CardFooter,
+} from '@/components/ui/card';
 
 function AccountPageContent() {
   const { user, logout } = useAuth();
@@ -34,15 +41,21 @@ function AccountPageContent() {
             <CardContent>
               <div className="space-y-3">
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Name</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Name
+                  </label>
                   <p className="text-gray-900">{user?.name}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Email</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Email
+                  </label>
                   <p className="text-gray-900">{user?.email}</p>
                 </div>
                 <div>
-                  <label className="text-sm font-medium text-gray-700">Role</label>
+                  <label className="text-sm font-medium text-gray-700">
+                    Role
+                  </label>
                   <p className="text-gray-900 capitalize">{user?.role}</p>
                 </div>
               </div>
@@ -138,17 +151,11 @@ function AccountPageContent() {
             </CardHeader>
             <CardContent>
               <div className="flex flex-col sm:flex-row gap-4">
-                <Button variant="outline">
-                  Change Password
-                </Button>
-                <Button variant="outline">
-                  Privacy Settings
-                </Button>
-                <Button variant="outline">
-                  Notification Preferences
-                </Button>
-                <Button 
-                  variant="outline" 
+                <Button variant="outline">Change Password</Button>
+                <Button variant="outline">Privacy Settings</Button>
+                <Button variant="outline">Notification Preferences</Button>
+                <Button
+                  variant="outline"
                   onClick={handleLogout}
                   className="text-red-600 border-red-300 hover:bg-red-50"
                 >

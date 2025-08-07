@@ -12,7 +12,7 @@ let accessToken: string | null = null;
 const isValidTokenFormat = (token: string): boolean => {
   try {
     const parts = token.split('.');
-    return parts.length === 3 && parts.every(part => part.length > 0);
+    return parts.length === 3 && parts.every((part) => part.length > 0);
   } catch {
     return false;
   }
@@ -48,7 +48,7 @@ export const tokenStorage = {
 // JWT token utilities
 export const tokenUtils = {
   // Decode JWT payload (client-side only for expiry check)
-  decodeToken: (token: string): any => {
+  decodeToken: (token: string): unknown => {
     try {
       const base64Url = token.split('.')[1];
       const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -59,28 +59,31 @@ export const tokenUtils = {
           .join('')
       );
       return JSON.parse(jsonPayload);
-    } catch (error) {
-      console.error('Error decoding token:', error);
+    } catch (err) {
+      console.error('Error decoding token:', err);
       return null;
     }
   },
 
   // Check if token is expired or will expire soon
-  isTokenExpired: (token: string, threshold: number = AUTH_CONFIG.tokenRefreshThreshold): boolean => {
-    const decoded = tokenUtils.decodeToken(token);
+  isTokenExpired: (
+    token: string,
+    threshold: number = AUTH_CONFIG.tokenRefreshThreshold
+  ): boolean => {
+    const decoded = tokenUtils.decodeToken(token) as { exp?: number };
     if (!decoded || !decoded.exp) {
       return true;
     }
 
     const expiryTime = decoded.exp * 1000; // Convert to milliseconds
     const currentTime = Date.now();
-    
-    return (expiryTime - currentTime) <= threshold;
+
+    return expiryTime - currentTime <= threshold;
   },
 
   // Get token expiry time
   getTokenExpiry: (token: string): number | null => {
-    const decoded = tokenUtils.decodeToken(token);
+    const decoded = tokenUtils.decodeToken(token) as { exp?: number };
     return decoded?.exp ? decoded.exp * 1000 : null;
   },
 };
@@ -92,7 +95,7 @@ export const authAPI = {
     const token = tokenStorage.getAccessToken();
     return token
       ? {
-          'Authorization': `Bearer ${token}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
         }
       : {
@@ -101,9 +104,12 @@ export const authAPI = {
   },
 
   // Make authenticated API request with automatic token refresh
-  authenticatedFetch: async (url: string, options: RequestInit = {}): Promise<Response> => {
+  authenticatedFetch: async (
+    url: string,
+    options: RequestInit = {}
+  ): Promise<Response> => {
     const token = tokenStorage.getAccessToken();
-    
+
     // Check if token is expired before making request
     if (token && tokenUtils.isTokenExpired(token, 0)) {
       throw new Error('Token expired, please login again');

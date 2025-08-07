@@ -1,24 +1,22 @@
 import { useCallback, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/store';
-import { 
-  loginUser, 
-  registerUser, 
-  logoutUser, 
-  refreshToken, 
-  clearError, 
+import {
+  loginUser,
+  registerUser,
+  logoutUser,
+  refreshToken,
+  clearError,
   setAccessToken,
   clearAuth,
-  setAuthState,
-  setLoading
+  setLoading,
 } from '@/store/slices/authSlice';
 import { tokenStorage, tokenUtils } from '@/lib/auth';
 import { LoginCredentials, RegisterData } from '@/types/auth';
 
 export const useAuth = () => {
   const dispatch = useAppDispatch();
-  const { user, isAuthenticated, isLoading, error, accessToken } = useAppSelector(
-    (state) => state.auth
-  );
+  const { user, isAuthenticated, isLoading, error, accessToken } =
+    useAppSelector((state) => state.auth);
 
   // Login function
   const login = useCallback(
@@ -80,9 +78,9 @@ export const useAuth = () => {
     if (token && tokenUtils.isTokenExpired(token)) {
       try {
         await refresh();
-      } catch (error) {
+      } catch (err) {
         // Token refresh failed, automatically logout user
-        console.warn('Token refresh failed, logging out user:', error);
+        console.warn('Token refresh failed, logging out user:', err);
         await logout();
       }
     }
@@ -101,7 +99,7 @@ export const useAuth = () => {
   useEffect(() => {
     const initializeAuth = async () => {
       dispatch(setLoading(true));
-      
+
       const token = tokenStorage.getAccessToken();
       if (token && !tokenUtils.isTokenExpired(token, 0)) {
         // Token exists and is not expired, update Redux state
@@ -110,13 +108,13 @@ export const useAuth = () => {
         // Token exists but is expired, try to refresh
         try {
           await refresh();
-        } catch (error) {
+        } catch {
           // Refresh failed, clear everything
           tokenStorage.clearAccessToken();
           dispatch(clearAuth());
         }
       }
-      
+
       dispatch(setLoading(false));
     };
 
@@ -156,7 +154,7 @@ export const useAuth = () => {
     isAuthenticated,
     isLoading,
     error,
-    
+
     // Actions
     login,
     register,
@@ -165,7 +163,7 @@ export const useAuth = () => {
     clearError: clearAuthError,
     checkTokenExpiry,
     handleTokenExpiry,
-    
+
     // Utilities
     hasValidToken: () => {
       const token = tokenStorage.getAccessToken();
