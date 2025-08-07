@@ -1,2 +1,8 @@
-// Auth hooks will be exported from here
 export { useAuth } from './useAuth';
+export { 
+  useRouteProtection, 
+  useCustomerRoute, 
+  useAdminRoute, 
+  useManagerRoute, 
+  useAuthRequired 
+} from './useRouteProtection';
