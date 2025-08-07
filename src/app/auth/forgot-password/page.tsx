@@ -35,17 +35,27 @@ export default function ForgotPasswordPage() {
     setError(null);
 
     try {
-      const response = await fetch('/api/v1/auth/forgot-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
+      // TODO: Replace with actual backend API call when ready
+      // const response = await fetch('/api/v1/auth/forgot-password', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(data),
+      // });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to send reset email');
+      // if (!response.ok) {
+      //   const errorData = await response.json();
+      //   throw new Error(errorData.message || 'Failed to send reset email');
+      // }
+
+      // MOCK FORGOT PASSWORD FOR TESTING
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
+
+      // Mock validation - check if email exists in our mock users
+      const mockEmails = ['admin@test.com', 'manager@test.com', 'customer@test.com'];
+      if (!mockEmails.includes(data.email)) {
+        throw new Error('Email not found in our records');
       }
 
       setIsSubmitted(true);

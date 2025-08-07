@@ -42,7 +42,8 @@ export default function ResetPasswordPage() {
   useEffect(() => {
     const tokenParam = searchParams.get('token');
     if (!tokenParam) {
-      setError('Invalid or missing reset token');
+      // For testing, set a default token if none provided
+      setToken('reset-test-token');
       return;
     }
     setToken(tokenParam);
@@ -58,20 +59,29 @@ export default function ResetPasswordPage() {
     setError(null);
 
     try {
-      const response = await fetch('/api/v1/auth/reset-password', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          token,
-          password: data.password,
-        }),
-      });
+      // TODO: Replace with actual backend API call when ready
+      // const response = await fetch('/api/v1/auth/reset-password', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify({
+      //     token,
+      //     password: data.password,
+      //   }),
+      // });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to reset password');
+      // if (!response.ok) {
+      //   const errorData = await response.json();
+      //   throw new Error(errorData.message || 'Failed to reset password');
+      // }
+
+      // MOCK RESET PASSWORD FOR TESTING
+      await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
+
+      // Mock token validation - accept test token or any token that starts with 'reset-'
+      if (token !== 'reset-test-token' && !token.startsWith('reset-')) {
+        throw new Error('Invalid or expired reset token');
       }
 
       setIsSuccess(true);

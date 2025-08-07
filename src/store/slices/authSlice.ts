@@ -24,23 +24,62 @@ export const loginUser = createAsyncThunk(
   'auth/login',
   async (credentials: LoginCredentials, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/auth/login', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(credentials),
-        credentials: 'include', // Include cookies for refresh token
-      });
+      // TODO: Replace with actual backend API call when ready
+      // const response = await fetch('/api/v1/auth/login', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(credentials),
+      //   credentials: 'include', // Include cookies for refresh token
+      // });
 
-      if (!response.ok) {
-        const error = await response.json();
-        return rejectWithValue(error.message || 'Login failed');
+      // if (!response.ok) {
+      //   const error = await response.json();
+      //   return rejectWithValue(error.message || 'Login failed');
+      // }
+
+      // const data = await response.json();
+      // return data;
+
+      // MOCK AUTHENTICATION FOR TESTING
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
+
+      // Mock user credentials for testing
+      const mockUsers = [
+        {
+          email: 'admin@test.com',
+          password: 'admin123',
+          user: { id: '1', email: 'admin@test.com', name: 'Admin User', role: 'admin' as const },
+        },
+        {
+          email: 'manager@test.com',
+          password: 'manager123',
+          user: { id: '2', email: 'manager@test.com', name: 'Manager User', role: 'manager' as const },
+        },
+        {
+          email: 'customer@test.com',
+          password: 'customer123',
+          user: { id: '3', email: 'customer@test.com', name: 'Customer User', role: 'customer' as const },
+        },
+      ];
+
+      const mockUser = mockUsers.find(
+        (u) => u.email === credentials.email && u.password === credentials.password
+      );
+
+      if (!mockUser) {
+        return rejectWithValue('Invalid email or password');
       }
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
+      // Generate mock JWT token
+      const mockToken = `mock-jwt-token-${mockUser.user.id}-${Date.now()}`;
+
+      return {
+        user: mockUser.user,
+        accessToken: mockToken,
+      };
+    } catch {
       return rejectWithValue('Network error occurred');
     }
   }
@@ -50,23 +89,49 @@ export const registerUser = createAsyncThunk(
   'auth/register',
   async (userData: RegisterData, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/auth/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(userData),
-        credentials: 'include',
-      });
+      // TODO: Replace with actual backend API call when ready
+      // const response = await fetch('/api/v1/auth/register', {
+      //   method: 'POST',
+      //   headers: {
+      //     'Content-Type': 'application/json',
+      //   },
+      //   body: JSON.stringify(userData),
+      //   credentials: 'include',
+      // });
 
-      if (!response.ok) {
-        const error = await response.json();
-        return rejectWithValue(error.message || 'Registration failed');
+      // if (!response.ok) {
+      //   const error = await response.json();
+      //   return rejectWithValue(error.message || 'Registration failed');
+      // }
+
+      // const data = await response.json();
+      // return data;
+
+      // MOCK REGISTRATION FOR TESTING
+      await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
+
+      // Check if email already exists (mock validation)
+      const existingEmails = ['admin@test.com', 'manager@test.com', 'customer@test.com'];
+      if (existingEmails.includes(userData.email)) {
+        return rejectWithValue('Email already exists');
       }
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
+      // Create new mock user (default role: customer)
+      const newUser = {
+        id: `user-${Date.now()}`,
+        email: userData.email,
+        name: userData.name,
+        role: 'customer' as const,
+      };
+
+      // Generate mock JWT token
+      const mockToken = `mock-jwt-token-${newUser.id}-${Date.now()}`;
+
+      return {
+        user: newUser,
+        accessToken: mockToken,
+      };
+    } catch {
       return rejectWithValue('Network error occurred');
     }
   }
@@ -76,18 +141,26 @@ export const refreshToken = createAsyncThunk(
   'auth/refreshToken',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await fetch('/api/v1/auth/refresh', {
-        method: 'POST',
-        credentials: 'include', // Send refresh token cookie
-      });
+      // TODO: Replace with actual backend API call when ready
+      // const response = await fetch('/api/v1/auth/refresh', {
+      //   method: 'POST',
+      //   credentials: 'include', // Send refresh token cookie
+      // });
 
-      if (!response.ok) {
-        return rejectWithValue('Token refresh failed');
-      }
+      // if (!response.ok) {
+      //   return rejectWithValue('Token refresh failed');
+      // }
 
-      const data = await response.json();
-      return data;
-    } catch (error) {
+      // const data = await response.json();
+      // return data;
+
+      // MOCK TOKEN REFRESH FOR TESTING
+      await new Promise((resolve) => setTimeout(resolve, 500)); // Simulate network delay
+
+      // For mock purposes, we'll just return a failure to simulate token expiry
+      // In a real app, this would refresh the token if valid
+      return rejectWithValue('Token refresh failed - please login again');
+    } catch {
       return rejectWithValue('Network error occurred');
     }
   }
@@ -95,20 +168,25 @@ export const refreshToken = createAsyncThunk(
 
 export const logoutUser = createAsyncThunk(
   'auth/logout',
-  async (_, { rejectWithValue }) => {
+  async () => {
     try {
-      const response = await fetch('/api/v1/auth/logout', {
-        method: 'POST',
-        credentials: 'include',
-      });
+      // TODO: Replace with actual backend API call when ready
+      // const response = await fetch('/api/v1/auth/logout', {
+      //   method: 'POST',
+      //   credentials: 'include',
+      // });
 
-      if (!response.ok) {
-        // Even if logout fails on server, we should clear local state
-        console.warn('Server logout failed, clearing local state');
-      }
+      // if (!response.ok) {
+      //   // Even if logout fails on server, we should clear local state
+      //   console.warn('Server logout failed, clearing local state');
+      // }
 
+      // MOCK LOGOUT FOR TESTING
+      await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate network delay
+      
+      // Always succeed for mock logout
       return null;
-    } catch (error) {
+    } catch {
       // Even if network fails, we should clear local state
       console.warn('Network error during logout, clearing local state');
       return null;

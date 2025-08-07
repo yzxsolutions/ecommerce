@@ -3,13 +3,10 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --primary-500: #22c55e;
+  --primary-600: #16a34a;
+  --secondary-500: #f59e0b;
+  --secondary-600: #d97706;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -22,5 +19,57 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family:
+    Inter,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    'Segoe UI',
+    Roboto,
+    sans-serif;
+}
+
+/* Ensure primary button styles are available */
+.bg-primary-500 {
+  background-color: var(--primary-500) !important;
+}
+
+.bg-primary-600 {
+  background-color: var(--primary-600) !important;
+}
+
+.hover\:bg-primary-600:hover {
+  background-color: var(--primary-600) !important;
+}
+
+.bg-secondary-500 {
+  background-color: var(--secondary-500) !important;
+}
+
+.bg-secondary-600 {
+  background-color: var(--secondary-600) !important;
+}
+
+.hover\:bg-secondary-600:hover {
+  background-color: var(--secondary-600) !important;
+}
+
+.text-primary-500 {
+  color: var(--primary-500) !important;
+}
+
+.text-primary-600 {
+  color: var(--primary-600) !important;
+}
+
+.border-primary-500 {
+  border-color: var(--primary-500) !important;
+}
+
+.focus\:ring-primary-500:focus {
+  --tw-ring-color: var(--primary-500) !important;
+}
+
+.focus\:ring-secondary-500:focus {
+  --tw-ring-color: var(--secondary-500) !important;
 }
