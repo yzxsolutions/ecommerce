@@ -6,3 +6,5 @@ export const apiClient = {
   baseURL: API_BASE_URL,
   // API client configuration will be implemented here
 };
+
+export * from './products';

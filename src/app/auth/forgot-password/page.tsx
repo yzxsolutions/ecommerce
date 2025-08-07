@@ -53,7 +53,11 @@ export default function ForgotPasswordPage() {
       await new Promise((resolve) => setTimeout(resolve, 1500)); // Simulate network delay
 
       // Mock validation - check if email exists in our mock users
-      const mockEmails = ['admin@test.com', 'manager@test.com', 'customer@test.com'];
+      const mockEmails = [
+        'admin@test.com',
+        'manager@test.com',
+        'customer@test.com',
+      ];
       if (!mockEmails.includes(data.email)) {
         throw new Error('Email not found in our records');
       }

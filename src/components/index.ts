@@ -6,3 +6,6 @@ export * from './layout';
 
 // Form Components
 export * from './forms';
+
+// Product Components
+export * from './products';

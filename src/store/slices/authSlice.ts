@@ -50,22 +50,38 @@ export const loginUser = createAsyncThunk(
         {
           email: 'admin@test.com',
           password: 'admin123',
-          user: { id: '1', email: 'admin@test.com', name: 'Admin User', role: 'admin' as const },
+          user: {
+            id: '1',
+            email: 'admin@test.com',
+            name: 'Admin User',
+            role: 'admin' as const,
+          },
         },
         {
           email: 'manager@test.com',
           password: 'manager123',
-          user: { id: '2', email: 'manager@test.com', name: 'Manager User', role: 'manager' as const },
+          user: {
+            id: '2',
+            email: 'manager@test.com',
+            name: 'Manager User',
+            role: 'manager' as const,
+          },
         },
         {
           email: 'customer@test.com',
           password: 'customer123',
-          user: { id: '3', email: 'customer@test.com', name: 'Customer User', role: 'customer' as const },
+          user: {
+            id: '3',
+            email: 'customer@test.com',
+            name: 'Customer User',
+            role: 'customer' as const,
+          },
         },
       ];
 
       const mockUser = mockUsers.find(
-        (u) => u.email === credentials.email && u.password === credentials.password
+        (u) =>
+          u.email === credentials.email && u.password === credentials.password
       );
 
       if (!mockUser) {
@@ -111,7 +127,11 @@ export const registerUser = createAsyncThunk(
       await new Promise((resolve) => setTimeout(resolve, 1000)); // Simulate network delay
 
       // Check if email already exists (mock validation)
-      const existingEmails = ['admin@test.com', 'manager@test.com', 'customer@test.com'];
+      const existingEmails = [
+        'admin@test.com',
+        'manager@test.com',
+        'customer@test.com',
+      ];
       if (existingEmails.includes(userData.email)) {
         return rejectWithValue('Email already exists');
       }
@@ -166,33 +186,30 @@ export const refreshToken = createAsyncThunk(
   }
 );
 
-export const logoutUser = createAsyncThunk(
-  'auth/logout',
-  async () => {
-    try {
-      // TODO: Replace with actual backend API call when ready
-      // const response = await fetch('/api/v1/auth/logout', {
-      //   method: 'POST',
-      //   credentials: 'include',
-      // });
+export const logoutUser = createAsyncThunk('auth/logout', async () => {
+  try {
+    // TODO: Replace with actual backend API call when ready
+    // const response = await fetch('/api/v1/auth/logout', {
+    //   method: 'POST',
+    //   credentials: 'include',
+    // });
 
-      // if (!response.ok) {
-      //   // Even if logout fails on server, we should clear local state
-      //   console.warn('Server logout failed, clearing local state');
-      // }
+    // if (!response.ok) {
+    //   // Even if logout fails on server, we should clear local state
+    //   console.warn('Server logout failed, clearing local state');
+    // }
 
-      // MOCK LOGOUT FOR TESTING
-      await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate network delay
-      
-      // Always succeed for mock logout
-      return null;
-    } catch {
-      // Even if network fails, we should clear local state
-      console.warn('Network error during logout, clearing local state');
-      return null;
-    }
+    // MOCK LOGOUT FOR TESTING
+    await new Promise((resolve) => setTimeout(resolve, 300)); // Simulate network delay
+
+    // Always succeed for mock logout
+    return null;
+  } catch {
+    // Even if network fails, we should clear local state
+    console.warn('Network error during logout, clearing local state');
+    return null;
   }
-);
+});
 
 // Auth slice
 const authSlice = createSlice({

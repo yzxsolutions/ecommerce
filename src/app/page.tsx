@@ -35,39 +35,55 @@ export default function Home() {
         <div className="mb-8">
           <Card>
             <CardHeader>
-              <CardTitle className="text-blue-600">🧪 Mock Authentication (Testing Mode)</CardTitle>
+              <CardTitle className="text-blue-600">
+                🧪 Mock Authentication (Testing Mode)
+              </CardTitle>
               <CardDescription>
-                Use these test credentials to login since backend is not connected yet
+                Use these test credentials to login since backend is not
+                connected yet
               </CardDescription>
             </CardHeader>
             <CardContent>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                  <h3 className="font-semibold text-red-800 mb-2">👑 Admin User</h3>
+                  <h3 className="font-semibold text-red-800 mb-2">
+                    👑 Admin User
+                  </h3>
                   <p className="text-sm text-red-700">
-                    <strong>Email:</strong> admin@test.com<br />
+                    <strong>Email:</strong> admin@test.com
+                    <br />
                     <strong>Password:</strong> admin123
                   </p>
                 </div>
                 <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
-                  <h3 className="font-semibold text-yellow-800 mb-2">👨‍💼 Manager User</h3>
+                  <h3 className="font-semibold text-yellow-800 mb-2">
+                    👨‍💼 Manager User
+                  </h3>
                   <p className="text-sm text-yellow-700">
-                    <strong>Email:</strong> manager@test.com<br />
+                    <strong>Email:</strong> manager@test.com
+                    <br />
                     <strong>Password:</strong> manager123
                   </p>
                 </div>
                 <div className="bg-green-50 border border-green-200 rounded-lg p-4">
-                  <h3 className="font-semibold text-green-800 mb-2">👤 Customer User</h3>
+                  <h3 className="font-semibold text-green-800 mb-2">
+                    👤 Customer User
+                  </h3>
                   <p className="text-sm text-green-700">
-                    <strong>Email:</strong> customer@test.com<br />
+                    <strong>Email:</strong> customer@test.com
+                    <br />
                     <strong>Password:</strong> customer123
                   </p>
                 </div>
               </div>
               <div className="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
                 <p className="text-sm text-blue-800">
-                  <strong>Note:</strong> You can also register new users - they will be created as customers by default.
-                  For password reset testing, use token: <code className="bg-blue-100 px-1 rounded">reset-test-token</code>
+                  <strong>Note:</strong> You can also register new users - they
+                  will be created as customers by default. For password reset
+                  testing, use token:{' '}
+                  <code className="bg-blue-100 px-1 rounded">
+                    reset-test-token
+                  </code>
                 </p>
               </div>
             </CardContent>
@@ -156,6 +172,11 @@ export default function Home() {
                 <Link href="/" className="block">
                   <Button variant="ghost" className="w-full justify-start">
                     🏠 Home
+                  </Button>
+                </Link>
+                <Link href="/products" className="block">
+                  <Button variant="ghost" className="w-full justify-start">
+                    🛍️ Products
                   </Button>
                 </Link>
                 <Link href="/auth/login" className="block">
