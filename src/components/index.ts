@@ -9,3 +9,6 @@ export * from './forms';
 
 // Product Components
 export * from './products';
+
+// Homepage Components
+export * from './homepage';

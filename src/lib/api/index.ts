@@ -8,3 +8,4 @@ export const apiClient = {
 };
 
 export * from './products';
+export * from './homepage';
