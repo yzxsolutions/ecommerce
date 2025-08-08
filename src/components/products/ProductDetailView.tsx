@@ -3,11 +3,11 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import { Product, ProductVariant } from '@/types/product';
-import { Button } from '@/components/ui/button';
 import { Card } from '@/components/ui/card';
 import { ProductImageGallery } from './ProductImageGallery';
 import { VariantSelector } from './VariantSelector';
 import { StockStatus } from './StockStatus';
+import { AddToCartButton } from '@/components/cart';
 import { formatPrice } from '@/utils/formatting';
 
 interface ProductDetailViewProps {
@@ -19,7 +19,6 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
     product.variants.length > 0 ? product.variants[0] : null
   );
   const [quantity, setQuantity] = useState(1);
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
 
   // Calculate current price and stock based on selected variant
   const currentPrice = selectedVariant ? selectedVariant.price : product.price;
@@ -34,31 +33,6 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
   const handleQuantityChange = (newQuantity: number) => {
     if (newQuantity >= 1 && newQuantity <= currentStock) {
       setQuantity(newQuantity);
-    }
-  };
-
-  const handleAddToCart = async () => {
-    if (!isInStock) return;
-
-    setIsAddingToCart(true);
-    try {
-      // TODO: Implement actual add to cart API call
-      console.log('Adding to cart:', {
-        productId: product.id,
-        variantId: selectedVariant?.id,
-        quantity,
-      });
-
-      // Simulate API call
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      // TODO: Show success toast
-      console.log('Added to cart successfully');
-    } catch (error) {
-      console.error('Failed to add to cart:', error);
-      // TODO: Show error toast
-    } finally {
-      setIsAddingToCart(false);
     }
   };
 
@@ -186,23 +160,17 @@ export function ProductDetailView({ product }: ProductDetailViewProps) {
 
           {/* Add to Cart Button */}
           <div className="pt-4">
-            <Button
-              onClick={handleAddToCart}
-              disabled={!isInStock || isAddingToCart}
-              className="w-full h-12 text-lg font-medium"
+            <AddToCartButton
+              product={product}
+              selectedVariant={selectedVariant || undefined}
+              quantity={quantity}
               size="lg"
+              className="w-full h-12 text-lg font-medium"
             >
-              {isAddingToCart ? (
-                <div className="flex items-center space-x-2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                  <span>Adding to Cart...</span>
-                </div>
-              ) : !isInStock ? (
-                'Out of Stock'
-              ) : (
-                `Add to Cart - ${formatPrice(currentPrice * quantity)}`
-              )}
-            </Button>
+              {!isInStock
+                ? 'Out of Stock'
+                : `Add to Cart - ${formatPrice(currentPrice * quantity)}`}
+            </AddToCartButton>
           </div>
 
           {/* Product Details */}

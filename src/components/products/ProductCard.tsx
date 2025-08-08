@@ -3,7 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { Product } from '@/types/product';
-import { Button } from '@/components/ui/button';
+import { AddToCartButton } from '@/components/cart';
 
 interface ProductCardProps {
   product: Product;
@@ -115,50 +115,14 @@ export function ProductCard({ product }: ProductCardProps) {
 
         {/* Action Button */}
         <div className="w-full">
-          <Button
-            disabled={isOutOfStock}
-            className={`w-full h-12 rounded-2xl font-semibold text-base transition-all duration-300 transform hover:scale-[1.02] ${
-              isOutOfStock
-                ? 'bg-gray-100 text-gray-400 cursor-not-allowed hover:bg-gray-100 hover:scale-100'
-                : 'bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white shadow-lg hover:shadow-xl shadow-primary-500/25'
-            }`}
+          <AddToCartButton
+            product={product}
+            size="lg"
+            className="w-full h-12 rounded-2xl font-semibold text-base transition-all duration-300 transform hover:scale-[1.02] bg-gradient-to-r from-primary-600 to-primary-700 hover:from-primary-700 hover:to-primary-800 text-white shadow-lg hover:shadow-xl shadow-primary-500/25"
+            showIcon={true}
           >
-            {isOutOfStock ? (
-              <div className="flex items-center gap-2">
-                <svg
-                  className="w-4 h-4"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-                SOLD OUT
-              </div>
-            ) : (
-              <div className="flex items-center gap-2">
-                <svg
-                  className="w-5 h-5"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 11-4 0v-6m4 0V9a2 2 0 10-4 0v4.01"
-                  />
-                </svg>
-                ADD TO CART
-              </div>
-            )}
-          </Button>
+            {isOutOfStock ? 'SOLD OUT' : 'ADD TO CART'}
+          </AddToCartButton>
         </div>
       </div>
     </div>
