@@ -9,29 +9,46 @@ interface ProductGridProps {
   gridColumns?: number;
 }
 
-// Modern skeleton loader component matching the light theme card
+// Enhanced skeleton loader component with shimmer animation
 function ProductCardSkeleton() {
   return (
-    <div className="bg-white rounded-3xl shadow-sm border border-gray-200/50 overflow-hidden animate-pulse">
-      {/* Image skeleton */}
-      <div className="aspect-square bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]"></div>
+    <div className="bg-white rounded-3xl shadow-sm border border-gray-200/50 overflow-hidden">
+      {/* Image skeleton with shimmer */}
+      <div className="aspect-square bg-gradient-to-r from-gray-200 via-gray-100 to-gray-200 bg-[length:200%_100%] animate-[shimmer_1.5s_infinite]">
+        {/* Wishlist button skeleton */}
+        <div className="absolute top-4 right-4 w-10 h-10 bg-gray-300 rounded-full animate-pulse"></div>
+        {/* Stock badge skeleton */}
+        <div className="absolute top-4 left-4 w-20 h-6 bg-gray-300 rounded-full animate-pulse"></div>
+      </div>
+
+      {/* Variant thumbnails skeleton */}
+      <div className="px-6 py-3 bg-gradient-to-r from-gray-50 to-gray-100 border-t border-gray-200">
+        <div className="flex gap-2 justify-center">
+          {Array.from({ length: 3 }).map((_, index) => (
+            <div
+              key={index}
+              className="w-12 h-12 bg-gray-200 rounded-xl animate-pulse"
+            />
+          ))}
+        </div>
+      </div>
 
       {/* Content skeleton */}
       <div className="px-6 py-6 bg-gradient-to-br from-white to-gray-50/50 space-y-4">
         {/* Category skeleton */}
-        <div className="h-6 bg-gray-200 rounded-full w-20"></div>
+        <div className="h-6 bg-gray-200 rounded-full w-20 animate-pulse"></div>
 
         {/* Title and price skeleton */}
-        <div className="flex items-start justify-between">
+        <div className="flex items-start justify-between mb-6">
           <div className="space-y-2 flex-1 pr-4">
-            <div className="h-5 bg-gray-200 rounded w-full"></div>
-            <div className="h-5 bg-gray-200 rounded w-3/4"></div>
+            <div className="h-5 bg-gray-200 rounded w-full animate-pulse"></div>
+            <div className="h-5 bg-gray-200 rounded w-3/4 animate-pulse"></div>
           </div>
-          <div className="h-6 bg-gray-200 rounded w-16"></div>
+          <div className="h-8 bg-gray-200 rounded w-16 animate-pulse"></div>
         </div>
 
         {/* Button skeleton */}
-        <div className="w-full h-12 bg-gray-200 rounded-2xl"></div>
+        <div className="w-full h-12 bg-gray-200 rounded-2xl animate-pulse"></div>
       </div>
     </div>
   );

@@ -10,6 +10,8 @@ import {
   Pagination,
   GridViewSelector,
 } from '@/components/products';
+import { ProductErrorState } from '@/components/products/ProductErrorState';
+import { ProductErrorWrapper } from '@/components/products/ProductErrorBoundary';
 
 export default function ProductsPage() {
   const [gridColumns, setGridColumns] = useState(4); // Default to 4 columns
@@ -20,7 +22,8 @@ export default function ProductsPage() {
     sortOrder: 'asc',
   });
 
-  const { data, loading, error, refetch } = useProducts(filters);
+  const { data, loading, error, refetch, isRetrying, retryAttempt } =
+    useProducts(filters);
 
   const handleSearch = useCallback((search: string) => {
     setFilters((prev) => ({
@@ -51,19 +54,13 @@ export default function ProductsPage() {
     return (
       <div className="min-h-screen bg-gray-50 py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center py-12">
-            <div className="text-red-400 text-6xl mb-4">⚠️</div>
-            <h3 className="text-lg font-semibold text-gray-900 mb-2">
-              Error loading products
-            </h3>
-            <p className="text-gray-600 mb-4">{error}</p>
-            <button
-              onClick={refetch}
-              className="bg-primary-600 text-white px-4 py-2 rounded-md hover:bg-primary-700 transition-colors"
-            >
-              Try Again
-            </button>
-          </div>
+          <ProductErrorState
+            error={error}
+            onRetry={refetch}
+            isRetrying={isRetrying}
+            retryAttempt={retryAttempt}
+            variant="page"
+          />
         </div>
       </div>
     );
@@ -174,11 +171,13 @@ export default function ProductsPage() {
               )}
 
               {/* Product Grid */}
-              <ProductGrid
-                products={data?.products || []}
-                loading={loading}
-                gridColumns={gridColumns}
-              />
+              <ProductErrorWrapper>
+                <ProductGrid
+                  products={data?.products || []}
+                  loading={loading}
+                  gridColumns={gridColumns}
+                />
+              </ProductErrorWrapper>
 
               {/* Pagination */}
               {data && data.pagination.totalPages > 1 && (

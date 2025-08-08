@@ -291,8 +291,10 @@ const authSlice = createSlice({
       })
       .addCase(refreshToken.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.accessToken = action.payload.accessToken;
-        state.user = action.payload.user;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        state.accessToken = (action.payload as any).accessToken;
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        state.user = (action.payload as any).user;
         state.isAuthenticated = true;
         state.error = null;
       })

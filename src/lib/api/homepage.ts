@@ -1,8 +1,8 @@
 import { HomepageSectionsResponse, HomepageSection, Product } from '@/types';
 import { ApiResponse } from '@/types/api';
 
-const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
+// const API_BASE_URL =
+//   process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3001/api/v1';
 
 // Mock data for development
 const mockHomepageSections: HomepageSection[] = [

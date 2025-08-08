@@ -50,6 +50,8 @@ export default function ResetPasswordPage() {
   }, [searchParams]);
 
   const onSubmit = async (data: ResetPasswordFormData) => {
+    // TODO: Use data when implementing actual API call
+    console.log('Reset password data:', data);
     if (!token) {
       setError('Invalid reset token');
       return;

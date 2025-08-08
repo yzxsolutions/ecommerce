@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { ProductCard } from '@/components/products/ProductCard';
-import { Product, FeaturedProductsContent } from '@/types';
+import { FeaturedProductsContent } from '@/types';
 import { useFeaturedProducts } from '@/hooks/api/useHomepage';
 
 interface FeaturedProductsCarouselProps {

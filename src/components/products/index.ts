@@ -9,3 +9,8 @@ export { ProductDetailSkeleton } from './ProductDetailSkeleton';
 export { ProductImageGallery } from './ProductImageGallery';
 export { VariantSelector } from './VariantSelector';
 export { StockStatus } from './StockStatus';
+export {
+  ProductErrorBoundary,
+  ProductErrorWrapper,
+} from './ProductErrorBoundary';
+export { ProductErrorState } from './ProductErrorState';

@@ -58,7 +58,8 @@ export const useAuth = () => {
   const refresh = useCallback(async () => {
     const result = await dispatch(refreshToken());
     if (refreshToken.fulfilled.match(result)) {
-      tokenStorage.setAccessToken(result.payload.accessToken);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      tokenStorage.setAccessToken((result.payload as any).accessToken);
       return result.payload;
     }
     // If refresh fails, clear everything

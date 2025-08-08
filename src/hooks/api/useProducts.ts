@@ -1,12 +1,15 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ProductFilters, ProductListResponse, Product } from '@/types/product';
 import { productsApi } from '@/lib/api/products';
+import { useApiRetry } from '@/hooks/useRetry';
 
 export interface UseProductsResult {
   data: ProductListResponse | null;
   loading: boolean;
   error: string | null;
   refetch: () => void;
+  isRetrying: boolean;
+  retryAttempt: number;
 }
 
 export function useProducts(filters: ProductFilters = {}): UseProductsResult {
@@ -14,23 +17,38 @@ export function useProducts(filters: ProductFilters = {}): UseProductsResult {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Enhanced API call with retry mechanism
+  const apiCall = useCallback(async (filters: ProductFilters) => {
+    const response = await productsApi.getProducts(filters);
+    if (!response.success) {
+      throw new Error(response.message || 'Failed to fetch products');
+    }
+    return response.data;
+  }, []);
+
+  const {
+    execute: executeWithRetry,
+    isRetrying,
+    attempt,
+  } = useApiRetry(apiCall, {
+    maxAttempts: 3,
+    delay: 1000,
+    backoffMultiplier: 1.5,
+    toastMessage: 'Retrying to load products...',
+  });
+
   const fetchProducts = useCallback(async () => {
     try {
       setLoading(true);
       setError(null);
-      const response = await productsApi.getProducts(filters);
-
-      if (response.success) {
-        setData(response.data);
-      } else {
-        setError(response.message || 'Failed to fetch products');
-      }
+      const result = await executeWithRetry(filters);
+      setData(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
-  }, [filters]);
+  }, [filters, executeWithRetry]);
 
   useEffect(() => {
     fetchProducts();
@@ -41,6 +59,8 @@ export function useProducts(filters: ProductFilters = {}): UseProductsResult {
     loading,
     error,
     refetch: fetchProducts,
+    isRetrying,
+    retryAttempt: attempt,
   };
 }
 
@@ -49,6 +69,8 @@ export interface UseProductResult {
   loading: boolean;
   error: string | null;
   refetch: () => void;
+  isRetrying: boolean;
+  retryAttempt: number;
 }
 
 export function useProduct(slug: string): UseProductResult {
@@ -56,25 +78,40 @@ export function useProduct(slug: string): UseProductResult {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
+  // Enhanced API call with retry mechanism
+  const apiCall = useCallback(async (slug: string) => {
+    const response = await productsApi.getProduct(slug);
+    if (!response.success) {
+      throw new Error(response.message || 'Failed to fetch product');
+    }
+    return response.data;
+  }, []);
+
+  const {
+    execute: executeWithRetry,
+    isRetrying,
+    attempt,
+  } = useApiRetry(apiCall, {
+    maxAttempts: 3,
+    delay: 1000,
+    backoffMultiplier: 1.5,
+    toastMessage: 'Retrying to load product...',
+  });
+
   const fetchProduct = useCallback(async () => {
     if (!slug) return;
 
     try {
       setLoading(true);
       setError(null);
-      const response = await productsApi.getProduct(slug);
-
-      if (response.success) {
-        setData(response.data);
-      } else {
-        setError(response.message || 'Failed to fetch product');
-      }
+      const result = await executeWithRetry(slug);
+      setData(result);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An error occurred');
     } finally {
       setLoading(false);
     }
-  }, [slug]);
+  }, [slug, executeWithRetry]);
 
   useEffect(() => {
     fetchProduct();
@@ -85,5 +122,7 @@ export function useProduct(slug: string): UseProductResult {
     loading,
     error,
     refetch: fetchProduct,
+    isRetrying,
+    retryAttempt: attempt,
   };
 }
