@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
 
 interface RetryOptions {
   maxAttempts?: number;
@@ -33,6 +33,13 @@ export function useRetry<T extends (...args: any[]) => Promise<any>>(
     lastError: null,
   });
 
+  // Use ref to store the latest function to avoid dependency issues
+  const asyncFunctionRef = useRef(asyncFunction);
+
+  useEffect(() => {
+    asyncFunctionRef.current = asyncFunction;
+  }, [asyncFunction]);
+
   const executeWithRetry = useCallback(
     async (...args: Parameters<T>): Promise<Awaited<ReturnType<T>>> => {
       let currentAttempt = 0;
@@ -46,7 +53,7 @@ export function useRetry<T extends (...args: any[]) => Promise<any>>(
             lastError: null,
           });
 
-          const result = await asyncFunction(...args);
+          const result = await asyncFunctionRef.current(...args);
 
           // Reset state on success
           setRetryState({
@@ -84,14 +91,7 @@ export function useRetry<T extends (...args: any[]) => Promise<any>>(
 
       throw new Error('Max retry attempts reached');
     },
-    [
-      asyncFunction,
-      maxAttempts,
-      delay,
-      backoffMultiplier,
-      onRetry,
-      onMaxAttemptsReached,
-    ]
+    [maxAttempts, delay, backoffMultiplier, onRetry, onMaxAttemptsReached]
   );
 
   const reset = useCallback(() => {
