@@ -10,6 +10,9 @@ export * from './forms';
 // Cart Components
 export * from './cart';
 
+// Checkout Components
+export * from './checkout';
+
 // Product Components
 export * from './products';
 
